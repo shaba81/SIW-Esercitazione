@@ -42,8 +42,29 @@ public class IndirizzoDaoJDBC implements IndirizzoDao{
 
 	@Override
 	public Indirizzo findByPrimaryKey(Long codice) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection connection = this.dataSource.getConnection();
+		Indirizzo indirizzo = null;
+		try {
+			PreparedStatement statement;
+			String query = "select * from indirizzo where codice = ?";
+			statement = connection.prepareStatement(query);
+			statement.setLong(1, codice);
+			ResultSet result = statement.executeQuery();
+			if (result.next()) {
+				indirizzo = new Indirizzo();
+				indirizzo.setCodice(result.getLong("codice"));				
+				indirizzo.setNome(result.getString("nome"));
+			}
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}	
+		return indirizzo;
 	}
 
 	@Override
@@ -77,14 +98,44 @@ public class IndirizzoDaoJDBC implements IndirizzoDao{
 
 	@Override
 	public void update(Indirizzo indirizzo) {
-		// TODO Auto-generated method stub
+		Connection connection = this.dataSource.getConnection();
+		try {
+			String update = "update indirizzo SET codice = ?, nome = ?";
+			PreparedStatement statement = connection.prepareStatement(update);
+			statement.setLong(1, indirizzo.getCodice());
+			statement.setString(2, indirizzo.getNome());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}
 		
 	}
 
 	@Override
 	public void delete(Indirizzo indirizzo) {
-		// TODO Auto-generated method stub
-		
+		Connection connection = this.dataSource.getConnection();
+		try {
+			String delete = "delete FROM indirizzo WHERE codice = ? ";
+			PreparedStatement statement = connection.prepareStatement(delete);
+			statement.setLong(1, indirizzo.getCodice());
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			throw new PersistenceException(e.getMessage());
+		} finally {
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				throw new PersistenceException(e.getMessage());
+			}
+		}
 	}
-
+		
 }
+
+
