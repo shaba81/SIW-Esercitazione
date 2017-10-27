@@ -219,21 +219,9 @@ public class CorsoDaoJDBC implements CorsoDao {
 			String delete = "delete FROM corso WHERE codice = ? ";
 			PreparedStatement statement = connection.prepareStatement(delete);
 			statement.setLong(1, corso.getCodice());
-
-			/* 
-			 * rimuoviamo gli studenti dal gruppo (ma non dal database) 
-			 * potevano esserci soluzioni diverse (ad esempio rimuovere tutti gli studenti dal database
-			 * (ma in questo caso non avrebbe senso)
-			 * La scelta dipende dalla semantica delle operazioni di dominio
-			 * 
-			 * */
 			connection.setAutoCommit(false);
 			connection.setTransactionIsolation(Connection.TRANSACTION_SERIALIZABLE);			
 			this.removeForeignKeyFromStudente(corso, connection);     			
-			/* 
-			 * ora rimuoviamo il gruppo
-			 * 
-			 * */
 			statement.executeUpdate();
 			connection.commit();
 		} catch (SQLException e) {
