@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Iscrivi uno studente</title>
+</head>
+<body>
+<header>
+	<h1>
+		Iscrivi uno studente
+	</h1>
+	<h2>
+		Portale per la gestione degli studenti 
+		afferenti a qualche corso di laurea
+	</h2>
+</header>
+<form method="post" action="iscrivi.php">
+<table>
+	<tr>
+		<td>Matricola:</td> <td><input name="matricola" type="text" /></td>
+	</tr>
+	<tr>
+		<td>Nome:</td> <td><input name="nome" type="text" /></td>
+	</tr>
+	<tr>
+		<td>Cognome:</td> <td><input name="cognome" type="text" /></td>
+	</tr>
+	<tr>
+		<td>Data di nascita:</td> <td><input name="datadinascita" type="date" /></td>
+	</tr>
+	<tr>
+		<td>Indirizzo:</td> 		 
+		<td> 
+			<select name="indirizzo">
+				<option value="1">Intelligenza Artificiale</option>
+				<option value="2">Web Computing</option>
+				<option value="3">Sistemi Operativi</option>
+			</select>
+	</tr>
+	<tr>
+		<td>Password:</td><td><input name="password" type="password"></td>
+	</tr>
+	<tr>
+		<td><input name="validaDati" type="button" value="Valida Dati"></td>
+	</tr>
+	<tr>
+		<td><input name="register" type="button" value="Registra"></td>
+	</tr>
+</table>
+</form>
+</body>
+</html>
