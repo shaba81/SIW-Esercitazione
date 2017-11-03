@@ -1,0 +1,8 @@
+@charset "ISO-8859-1";
+body {
+	font-family: sans-serif;
+}
+h1 {
+	font-family: monospace;
+	color: red;
+}
